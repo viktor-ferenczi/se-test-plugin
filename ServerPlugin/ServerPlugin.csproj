@@ -30,6 +30,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Magnetar PluginSdk: the only configuration mechanism the ServerPlugin uses.
+         Provided by the Magnetar host at runtime, so it is not copied (Private=False).
+         The path is resolved from $(MagnetarBin) in Directory.Build.props. -->
+    <Reference Include="PluginSdk">
+      <HintPath>$(MagnetarBin)\PluginSdk.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="DirectShowLib, Version=2.1.0.1599, Culture=neutral, PublicKeyToken=null">
       <HintPath>$(Dedicated64)\DirectShowLib.dll</HintPath>
       <Private>False</Private>
@@ -691,12 +701,12 @@
   -->
 
   <PropertyGroup Condition=" $([MSBuild]::IsOSPlatform('Windows')) ">
-    <PreBuildEvent>call "$(SolutionDir)\verify_props.bat" "$(Dedicated64)"</PreBuildEvent>
+    <PreBuildEvent>call "$(SolutionDir)\verify_props.bat" "$(Dedicated64)" "$(MagnetarBin)"</PreBuildEvent>
     <PostBuildEvent>call "$(MSBuildProjectDirectory)\Deploy.bat" "$(AssemblyName).dll" "$(MSBuildProjectDirectory)\$(OutputPath)$(TargetFramework)"</PostBuildEvent>
   </PropertyGroup>
 
   <PropertyGroup Condition=" !$([MSBuild]::IsOSPlatform('Windows')) ">
-    <PreBuildEvent>sh "$(SolutionDir)verify_props.sh" "$(Dedicated64)"</PreBuildEvent>
+    <PreBuildEvent>sh "$(SolutionDir)verify_props.sh" "$(Dedicated64)" "$(MagnetarBin)"</PreBuildEvent>
     <PostBuildEvent>sh "$(MSBuildProjectDirectory)/Deploy.sh" "$(AssemblyName).dll" "$(MSBuildProjectDirectory)/$(OutputPath.Replace('\','/'))$(TargetFramework)"</PostBuildEvent>
   </PropertyGroup>
 
