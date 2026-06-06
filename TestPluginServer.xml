@@ -17,12 +17,7 @@
     <Tooltip>Plugin to test Magnetar and the Plugin SDK features.</Tooltip>
 
     <!-- Optional plugin description. If omitted, this will be the same as the Tooltip. 1000 characters max. -->
-    <Description>TODO Long description, multiple lines.
-
-        This text is shown on the plugin details panel in a scrollable text box.
-
-        You can use links here, players can click on them. For example, add a Discord invite.
-    </Description>
+    <Description>Plugin to test Magnetar and the Plugin SDK features.</Description>
 
     <!-- Only source code in the Directory entries listed in SourceDirectories is compiled. Exclude any test projects or similar. -->
     <SourceDirectories>
