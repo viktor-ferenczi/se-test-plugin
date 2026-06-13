@@ -13,7 +13,7 @@ using VRage.FileSystem;
 using VRage.Game;
 using VRage.Plugins;
 
-// Set the assembly version manually if compiled by Pulsar (it won't create what was in AssemblyInfo.cs before)
+// Define assembly version when compiled by Pulsar
 #if !DEV_BUILD
 using System.Reflection;
 

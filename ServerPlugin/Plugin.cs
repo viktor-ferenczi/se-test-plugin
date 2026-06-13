@@ -17,6 +17,14 @@ using VRage.Game;
 using VRage.Plugins;
 using SdkLogger = PluginSdk.Logging.Logger;
 
+// Define assembly version when compiled by Magnetar
+#if !DEV_BUILD
+using System.Reflection;
+
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]
+#endif
+
 namespace ServerPlugin;
 
 // ReSharper disable once UnusedType.Global
