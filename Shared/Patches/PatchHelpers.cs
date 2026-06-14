@@ -23,9 +23,7 @@ public static class PatchHelpers
             }
 #endif
 
-        if (Common.Plugin.Config.DetectCodeChanges && 
-            Environment.GetEnvironmentVariable("SE_PLUGIN_DISABLE_METHOD_VERIFICATION") == null &&
-            !WineDetector.IsRunningInWineOrProton())
+        if (!WineDetector.IsRunningInWineOrProton())
         {
             log.Debug("Scanning for conflicting code changes");
             try
@@ -47,7 +45,7 @@ public static class PatchHelpers
         }
         else
         {
-            log.Warning("Conflicting code change detection is disabled in plugin configuration");
+            log.Warning("Conflicting code change detection is disabled when running under Wine/Proton");
         }
 
         log.Debug("Applying Harmony patches");

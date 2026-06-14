@@ -76,8 +76,8 @@ public struct MenuNode
 //  The configuration class. Derives from PluginSdk PluginConfig (the only
 //  configuration mechanism this server plugin uses) and additionally
 //  implements the Shared IPluginConfig so the existing Harmony patch
-//  scaffolding (Plugin.Common.Config) keeps gating on Enabled /
-//  DetectCodeChanges. INotifyPropertyChanged is supplied by PluginConfig.
+//  scaffolding (Plugin.Common.Config) keeps gating on Enabled.
+//  INotifyPropertyChanged is supplied by PluginConfig.
 // =====================================================================
 
 [Tab("general", caption: "General")]
@@ -107,9 +107,6 @@ public class TestPluginConfig : PluginSdk.Config.PluginConfig, IPluginConfig
     [BoolOption("Enable the plugin", Parent = "core-left")]
     public bool Enabled { get; set => SetField(ref field, value); } = true;
 
-    [BoolOption("Detect conflicting game code changes (disable on Proton/Wine)", Parent = "core-left")]
-    public bool DetectCodeChanges { get; set => SetField(ref field, value); } = true;
-
     [StringOption(maxLength: 64, description: "Display name shown to players", Parent = "core-right")]
     public string ServerName { get; set => SetField(ref field, value); } = "Test Server";
 
@@ -132,6 +129,13 @@ public class TestPluginConfig : PluginSdk.Config.PluginConfig, IPluginConfig
 
     [StringOption(maxLength: 32, pattern: @"^[A-Za-z0-9_-]+$", description: "World slug (letters, digits, _ and -)", Parent = "scalars-right")]
     public string WorldSlug { get; set => SetField(ref field, value); } = "default-world";
+
+    // Multi-line string: Multiline = true renders an auto-growing text area
+    // instead of a single-line input. The stored value is a plain string;
+    // embedded newlines are preserved.
+    [StringOption(description: "Message of the day shown on connect (multi-line)", Multiline = true, Parent = "scalars-right")]
+    public string Motd { get; set => SetField(ref field, value); }
+        = "Welcome to the Test Server!\nBe excellent to each other.";
 
     // ---- VRage value types (top-level only) ---------------------------
 

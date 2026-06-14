@@ -53,6 +53,15 @@ public class Plugin : IPlugin, ICommonPlugin
     private static TestPluginConfig config;
     public static TestPluginConfig TestConfig => config;
 
+    // Discovered by the Quasar agent. Discovery scans public *instance*
+    // properties for the first whose *declared type* is assignable to
+    // PluginSdk.Config.PluginConfig. Neither `Config` (declared as the Shared
+    // IPluginConfig interface — not assignable to PluginConfig) nor `TestConfig`
+    // (static, so not an instance property) qualifies, which left the config
+    // invisible to Quasar. This concrete-typed instance property satisfies the
+    // contract; the name "PluginConfig" also gives it priority.
+    public TestPluginConfig PluginConfig => config;
+
     private static string configPath;
 
     [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.NoInlining)]
